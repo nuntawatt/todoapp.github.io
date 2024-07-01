@@ -22,6 +22,7 @@
         let newTxtElement = document.createTextNode(inputValue); 
         newElement.appendChild(newTxtElement); 
 
+        // Create delete button
         let deleteButton = document.createElement("button");
         deleteButton.classList.add("btn", "btn-danger", "btn-sm");
         deleteButton.textContent = "Delete";
@@ -34,6 +35,7 @@
         let listElement = document.getElementById("listtodo");
         listElement.appendChild(newElement);
 
+        // Clear input field
         document.getElementById("input").value = "";
       }
     </script>
