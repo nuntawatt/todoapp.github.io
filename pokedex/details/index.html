@@ -31,6 +31,31 @@
         background-color: #218838; 
         border-color: #1e7e34; 
       }
+      .btn-custom-type, .btn-custom-ability {
+        margin: 0.2rem;
+        border-radius: 0.25rem;
+        color: #fff;
+        border: none;
+        font-size: 0.875rem; 
+        padding: 0.5rem 1rem; 
+        background-color: #000; 
+        transition: background-color 0.3s ease;
+      }
+      .btn-custom-type:hover, .btn-custom-ability:hover {
+        background: linear-gradient(45deg, #ff7f00, #ffff00, #8b00ff);
+        background-size: 400% 400%;
+        animation: rainbow 5s ease infinite;
+        color: #fff; 
+      }
+      @keyframes rainbow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .button-container {
+        display: flex;
+        gap: 0.5rem;
+      }
     </style>
 </head>
 <body>
@@ -54,9 +79,9 @@
         <h3 id="pokemonName"></h3>
         <p><strong>Height:</strong> <span id="pokemonHeight"></span></p>
         <p><strong>Weight:</strong> <span id="pokemonWeight"></span></p>
-        <p><strong>Types:</strong> <span id="pokemonTypes"></span></p>
-        <p><span id="pokemonStats"></span></p>
-        <p><strong>Abilities:</strong> <span id="pokemonAbilities"></span></p>
+        <p><strong>Types:</strong> <span id="pokemonTypes" class="d-block button-container"></span></p>
+        <p><strong>Stats:</strong> <span id="pokemonStats"></span></p>
+        <p><strong>Abilities:</strong> <span id="pokemonAbilities" class="d-block button-container"></span></p>
       </div>
     </div>
   </div>
@@ -109,7 +134,7 @@
 
             let types = '';
             data.types.forEach(type => {
-                types += `<a href="type.html?url=${type.type.url}">${type.type.name}</a> `;
+                types += `<button class="btn btn-custom-type btn-sm" onclick="window.location.href='type.html?url=${type.type.url}'">${type.type.name}</button> `;
             });
             document.getElementById('pokemonTypes').innerHTML = types;
 
@@ -121,7 +146,7 @@
 
             let abilities = '';
             data.abilities.forEach(ability => {
-                abilities += `<a href="abilities.html?url=${ability.ability.url}">${ability.ability.name}</a> `;
+                abilities += `<button class="btn btn-custom-ability btn-sm" onclick="window.location.href='abilities.html?url=${ability.ability.url}'">${ability.ability.name}</button> `;
             });
             document.getElementById('pokemonAbilities').innerHTML = abilities;
 
