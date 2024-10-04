@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en" data-theme="autumn">
 <head>
     <meta charset="utf-8" />
@@ -19,26 +19,84 @@
     </script>
 </head>
 
-<body class="bg-yellow-100">
-    <div class="container mx-auto p-4">
-        <button id="backButton" class="btn btn-primary mb-4">Back</button>
-        
-        <div id="pokemonDetail" class="flex flex-col items-center bg-yellow-200 shadow-lg rounded-lg p-6">
-            <img id="pokemonImage" src="" alt="Pokemon Image" class="rounded-lg shadow-lg mb-4" style="width: 200px; height: 200px;">
-            <h3 id="pokemonName" class="text-3xl font-bold mb-2 text-center"></h3>
+<body class="bg-yellow-100 h-screen flex items-center justify-center">
+    <div class="w-full h-full flex flex-col items-center justify-center p-4">
+        <!-- กล่องข้อมูลโปเกมอน -->
+        <div id="pokemonDetail" class="flex flex-col items-center bg-yellow-200 p-6 w-full h-full max-w-5xl mx-4 rounded-lg shadow-lg">
+            <!-- ปุ่ม Back -->
+            <button id="backButton" class="btn btn-primary mb-4 bg-red-500 hover:bg-black text-white py-2 px-4 rounded-md shadow-md transition duration-200 self-start">
+                Back
+            </button>
+            
+            <img id="pokemonImage" src="" alt="Pokemon Image" class="rounded-lg mb-4 w-64 h-64 object-cover"> 
+            <h3 id="pokemonName" class="text-5xl font-bold mb-2 text-center"></h3> 
             <p class="text-lg"><strong>Height:</strong> <span id="pokemonHeight"></span></p>
             <p class="text-lg"><strong>Weight:</strong> <span id="pokemonWeight"></span></p>
-            <p class="text-lg"><strong>Types:</strong> <span id="pokemonTypes" class="flex gap-2 mt-2"></span></p>
-            <div class="mt-4">
-                <h4 class="font-semibold">Stats:</h4>
-                <p class="text-lg">Hp: <span id="pokemonHp"></span></p>
-                <p class="text-lg">Attack: <span id="pokemonAttack"></span></p>
-                <p class="text-lg">Defense: <span id="pokemonDefense"></span></p>
-                <p class="text-lg">Special-attack: <span id="pokemonSpecialAttack"></span></p>
-                <p class="text-lg">Special-defense: <span id="pokemonSpecialDefense"></span></p>
-                <p class="text-lg">Speed: <span id="pokemonSpeed"></span></p>
+            <p class="text-lg"><strong>Types:</strong></p>
+            <div id="pokemonTypes" class="flex gap-2 mt-2"></div>
+
+            <div class="mt-4 w-full">
+                <h4 class="font-semibold text-xl mb-2">Stats:</h4>
+                <div class="space-y-4 mt-2">
+                    <div class="flex items-center">
+                        <span class="text-lg w-1/4">Hp:</span>
+                        <div class="relative w-full mx-2">
+                            <div class="bg-gray-300 rounded-full h-4">
+                                <div id="hpBar" class="bg-red-600 h-4 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <span id="pokemonHp" class="text-lg w-1/4 text-right"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-lg w-1/4">Attack:</span>
+                        <div class="relative w-full mx-2">
+                            <div class="bg-gray-300 rounded-full h-4">
+                                <div id="attackBar" class="bg-red-600 h-4 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <span id="pokemonAttack" class="text-lg w-1/4 text-right"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-lg w-1/4">Defense:</span>
+                        <div class="relative w-full mx-2">
+                            <div class="bg-gray-300 rounded-full h-4">
+                                <div id="defenseBar" class="bg-red-600 h-4 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <span id="pokemonDefense" class="text-lg w-1/4 text-right"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-lg w-1/4">Special Attack:</span>
+                        <div class="relative w-full mx-2">
+                            <div class="bg-gray-300 rounded-full h-4">
+                                <div id="specialAttackBar" class="bg-red-600 h-4 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <span id="pokemonSpecialAttack" class="text-lg w-1/4 text-right"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-lg w-1/4">Special Defense:</span>
+                        <div class="relative w-full mx-2">
+                            <div class="bg-gray-300 rounded-full h-4">
+                                <div id="specialDefenseBar" class="bg-red-600 h-4 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <span id="pokemonSpecialDefense" class="text-lg w-1/4 text-right"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-lg w-1/4">Speed:</span>
+                        <div class="relative w-full mx-2">
+                            <div class="bg-gray-300 rounded-full h-4">
+                                <div id="speedBar" class="bg-red-600 h-4 rounded-full" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <span id="pokemonSpeed" class="text-lg w-1/4 text-right"></span>
+                    </div>
+                </div>
             </div>
-            <p class="text-lg"><strong>Abilities:</strong> <span id="pokemonAbilities" class="flex gap-2 mt-2"></span></p>
+
+            <p class="text-lg mt-4"><strong>Abilities:</strong></p>
+            <div id="pokemonAbilities" class="flex gap-2 mt-2"></div>
         </div>
     </div>
 
@@ -52,9 +110,11 @@
         const id = params.get('id');
         const name = params.get('name');
 
+        // Fetch Pokémon details from API
         fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
             .then(res => res.json())
             .then(data => {
+                // Update Pokémon details in the UI
                 document.getElementById("pokemonName").textContent = name;
                 document.getElementById("pokemonHeight").textContent = `${data.height / 10} m`;
                 document.getElementById("pokemonWeight").textContent = `${data.weight / 10} kg`;
@@ -63,21 +123,56 @@
                 const typesContainer = document.getElementById("pokemonTypes");
                 typesContainer.innerHTML = '';
                 data.types.forEach(type => {
-                    typesContainer.innerHTML += `<a href="type.html?type=${type.type.name}" class="btn btn-secondary">${type.type.name}</a>`;
+                    typesContainer.innerHTML += `
+                        <a href="type.html?type=${type.type.name}" class="btn btn-secondary bg-red-500 hover:bg-black text-white py-1 px-2 rounded-md shadow transition duration-200">
+                            ${type.type.name}
+                        </a>
+                    `;
                 });
 
-                // Stats
-                document.getElementById("pokemonHp").textContent = data.stats[0].base_stat;
-                document.getElementById("pokemonAttack").textContent = data.stats[1].base_stat;
-                document.getElementById("pokemonDefense").textContent = data.stats[2].base_stat;
-                document.getElementById("pokemonSpecialAttack").textContent = data.stats[3].base_stat;
-                document.getElementById("pokemonSpecialDefense").textContent = data.stats[4].base_stat;
-                document.getElementById("pokemonSpeed").textContent = data.stats[5].base_stat;
+                // Update Stats and Bars
+                const stats = [
+                    { name: 'hp', value: data.stats[0].base_stat },
+                    { name: 'attack', value: data.stats[1].base_stat },
+                    { name: 'defense', value: data.stats[2].base_stat },
+                    { name: 'specialAttack', value: data.stats[3].base_stat },
+                    { name: 'specialDefense', value: data.stats[4].base_stat },
+                    { name: 'speed', value: data.stats[5].base_stat },
+                ];
+
+                stats.forEach(stat => {
+                    document.getElementById(`pokemon${stat.name.charAt(0).toUpperCase() + stat.name.slice(1)}`).textContent = stat.value;
+
+                    const maxStat = 255; // Maximum base stat for Pokémon
+                    let percentage = (stat.value / maxStat) * 100;
+
+                    // ปรับเปอร์เซ็นต์ให้แสดงอย่างถูกต้อง
+                    if (percentage > 100) {
+                        percentage = 100; // ป้องกันเปอร์เซ็นต์เกิน 100
+                    }
+
+                    document.getElementById(`${stat.name}Bar`).style.width = `${percentage}%`;
+
+                    // เปลี่ยนสีของแถบตามค่าพลัง
+                    const bar = document.getElementById(`${stat.name}Bar`);
+                    bar.classList.remove('bg-green-600', 'bg-yellow-400', 'bg-red-600'); 
+                    if (percentage >= 80) {
+                        bar.classList.add('bg-green-600');
+                    } else if (percentage >= 50) {
+                        bar.classList.add('bg-yellow-400');
+                    } else {
+                        bar.classList.add('bg-red-600');
+                    }
+                });
 
                 const abilitiesContainer = document.getElementById("pokemonAbilities");
                 abilitiesContainer.innerHTML = '';
                 data.abilities.forEach(ability => {
-                    abilitiesContainer.innerHTML += `<a href="abilities.html?ability=${ability.ability.name}" class="btn btn-secondary">${ability.ability.name}</a> `;
+                    abilitiesContainer.innerHTML += `
+                        <a href="abilities.html?ability=${ability.ability.name}" class="btn btn-secondary bg-red-500 hover:bg-black text-white py-1 px-2 rounded-md shadow transition duration-200">
+                            ${ability.ability.name}
+                        </a>
+                    `;
                 });
             });
     </script>
