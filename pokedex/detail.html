@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="autumn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pokemon Details</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {},
+            },
+            plugins: [daisyui],
+            daisyui: {
+                themes: ["autumn", "light", "dark"],
+            },
+        };
+    </script>
+</head>
+
+<body class="bg-yellow-100">
+    <div class="container mx-auto p-4">
+        <button id="backButton" class="btn btn-primary mb-4">Back</button>
+        
+        <div id="pokemonDetail" class="flex flex-col items-center bg-yellow-200 shadow-lg rounded-lg p-6">
+            <img id="pokemonImage" src="" alt="Pokemon Image" class="rounded-lg shadow-lg mb-4" style="width: 200px; height: 200px;">
+            <h3 id="pokemonName" class="text-3xl font-bold mb-2 text-center"></h3>
+            <p class="text-lg"><strong>Height:</strong> <span id="pokemonHeight"></span></p>
+            <p class="text-lg"><strong>Weight:</strong> <span id="pokemonWeight"></span></p>
+            <p class="text-lg"><strong>Types:</strong> <span id="pokemonTypes" class="flex gap-2 mt-2"></span></p>
+            <div class="mt-4">
+                <h4 class="font-semibold">Stats:</h4>
+                <p class="text-lg">Hp: <span id="pokemonHp"></span></p>
+                <p class="text-lg">Attack: <span id="pokemonAttack"></span></p>
+                <p class="text-lg">Defense: <span id="pokemonDefense"></span></p>
+                <p class="text-lg">Special-attack: <span id="pokemonSpecialAttack"></span></p>
+                <p class="text-lg">Special-defense: <span id="pokemonSpecialDefense"></span></p>
+                <p class="text-lg">Speed: <span id="pokemonSpeed"></span></p>
+            </div>
+            <p class="text-lg"><strong>Abilities:</strong> <span id="pokemonAbilities" class="flex gap-2 mt-2"></span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('backButton').addEventListener('click', () => {
+            window.history.back();
+        });
+
+        // Get Pokémon ID and Name from URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const name = params.get('name');
+
+        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("pokemonName").textContent = name;
+                document.getElementById("pokemonHeight").textContent = `${data.height / 10} m`;
+                document.getElementById("pokemonWeight").textContent = `${data.weight / 10} kg`;
+                document.getElementById("pokemonImage").src = data.sprites.other['official-artwork'].front_default;
+
+                const typesContainer = document.getElementById("pokemonTypes");
+                typesContainer.innerHTML = '';
+                data.types.forEach(type => {
+                    typesContainer.innerHTML += `<a href="type.html?type=${type.type.name}" class="btn btn-secondary">${type.type.name}</a>`;
+                });
+
+                // Stats
+                document.getElementById("pokemonHp").textContent = data.stats[0].base_stat;
+                document.getElementById("pokemonAttack").textContent = data.stats[1].base_stat;
+                document.getElementById("pokemonDefense").textContent = data.stats[2].base_stat;
+                document.getElementById("pokemonSpecialAttack").textContent = data.stats[3].base_stat;
+                document.getElementById("pokemonSpecialDefense").textContent = data.stats[4].base_stat;
+                document.getElementById("pokemonSpeed").textContent = data.stats[5].base_stat;
+
+                const abilitiesContainer = document.getElementById("pokemonAbilities");
+                abilitiesContainer.innerHTML = '';
+                data.abilities.forEach(ability => {
+                    abilitiesContainer.innerHTML += `<a href="abilities.html?ability=${ability.ability.name}" class="btn btn-secondary">${ability.ability.name}</a> `;
+                });
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Elegant To-Do App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100">
+    <script>
+        function addtodo() {
+            const inputValue = document.getElementById("input").value;
+            if (inputValue.trim() === "") return;
+
+            let newElement = document.createElement("li");
+            newElement.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center", "bg-white", "border", "rounded", "shadow-md", "mb-2");
+            let newTxtElement = document.createTextNode(inputValue); 
+            newElement.appendChild(newTxtElement); 
+
+            // Create delete button
+            let deleteButton = document.createElement("button");
+            deleteButton.classList.add("btn", "btn-danger", "btn-sm");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function () {
+                newElement.remove();
+            };
+
+            newElement.appendChild(deleteButton);
+
+            let listElement = document.getElementById("listtodo");
+            listElement.appendChild(newElement);
+
+            // Clear input field
+            document.getElementById("input").value = "";
+        }
+    </script>
+
+    <div class="container mx-auto mt-10">
+        <h1 class="text-center text-3xl font-semibold text-gray-800 mb-6">My To-Do List</h1>
+        <div class="flex justify-center mb-4">
+            <div class="w-3/4 md:w-1/2">
+                <div class="input-group mb-3">
+                    <input
+                        id="input"
+                        type="text"
+                        class="form-control border border-gray-300 rounded-l-lg py-2 px-4"
+                        placeholder="What do you want to do?"
+                        aria-label="todo name"
+                        aria-describedby="button-add"
+                    />
+                    <button
+                        class="btn btn-primary rounded-r-lg"
+                        type="button"
+                        id="button-add"
+                        onclick="addtodo()"
+                    >
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ul class="list-group" id="listtodo">
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
